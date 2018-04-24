@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <title>Task List</title>
+</head>
+<body>
+    <div class="container">
+        <h1 align="center">Welcome to the TODO List Manager!</h1>
+        <br>
+        <section>
+            <h4>Here you can see all existing tasks:</h4>
+
+            {% if tasks == "" %}
+            <p>Nothing to do!</p>
+
+            {% else %}
+            <ul>
+            {% for element in tasks %}
+               <li>
+                   {{ element }}
+                   <a href="{{ url_for('remove_task', id_task = ids[element]) }}">
+                       <img class="image_prop" src="{{ url_for('static', filename = 'x-button.png') }}" alt="X">
+                   </a>
+               </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <br>
+            <form action="{{ url_for('new_task') }}" method="post">
+                <p>
+                    Insert a new Task:
+                    <input type="text" name="new_task">
+                    <input type="submit" value="Enter">
+                </p>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
